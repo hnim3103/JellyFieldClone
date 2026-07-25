@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6143161358456624638}
   - component: {fileID: 5541261119899164774}
   - component: {fileID: 7057932227911855954}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Jelly_1x2_H
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -50,7 +50,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9120143135812319363}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1130615108851588006}
   - component: {fileID: 2246254030756713335}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: JellyContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56,7 +56,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1510307518108180571}
   - component: {fileID: 816429041236169121}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: JellyGroup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,6 +95,10 @@ MonoBehaviour:
   topRight: 1
   bottomLeft: 2
   bottomRight: 4
+  prefab1x1: {fileID: 0}
+  prefab1x2H: {fileID: 0}
+  prefab2x1V: {fileID: 0}
+  prefab2x2: {fileID: 0}
   colorMaterials:
   - color: 0
     material: {fileID: 2100000, guid: a542cf3e063190e4b9668dc67e48c784, type: 2}
