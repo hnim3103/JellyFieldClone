@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using JellyGame;
 
-public class JellyDragController : MonoBehaviour {
+public class DragSystem : MonoBehaviour {
     [SerializeField] private LayerMask jellyLayer;
 
     [SerializeField] private float liftHeight = 0.6f;
@@ -102,7 +102,7 @@ public class JellyDragController : MonoBehaviour {
             Touch touch = Input.GetTouch(0);
             return touch.phase == TouchPhase.Ended || touch.phase == TouchPhase.Canceled;
         }
-        
+
         return Input.GetMouseButtonUp(0);
     }
 }

@@ -1,0 +1,40 @@
+using UnityEngine;
+using JellyGame;
+
+public class PlacementSystem : MonoBehaviour {
+    [SerializeField] private DragSystem dragSystem;
+    [SerializeField] private LayerMask cellLayer;
+
+    private void OnEnable() {
+        if (dragSystem != null) {
+            dragSystem.OnDragEnded += HandleJellyDropped;
+        }
+    }
+
+    private void OnDisable() {
+        if (dragSystem != null) {
+            dragSystem.OnDragEnded -= HandleJellyDropped;
+        }       
+    }
+
+    private void HandleJellyDropped(JellyGroup jelly, Vector3 dropPostition, Vector3 originalPosition) {
+        Ray ray = new Ray(dropPostition + Vector3.up * 2f, Vector3.down);
+
+        Cell targetCell = null;
+
+        if (Physics.Raycast(ray, out RaycastHit hit, 10f, cellLayer)) {
+            targetCell = hit.collider.GetComponent<Cell>();
+        }
+
+        if (targetCell != null && !targetCell.IsOccupied) {
+            targetCell.SetJelly(jelly);
+
+            JellySquish squish = jelly.GetComponentInChildren<JellySquish>();
+            if (squish != null)
+                squish.ApplySquish();
+        }
+        else {
+            jelly.transform.position = originalPosition;
+        }
+    }
+}
