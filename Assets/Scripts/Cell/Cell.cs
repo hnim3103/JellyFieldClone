@@ -25,4 +25,7 @@ public class Cell : MonoBehaviour {
         }
     }
 
+    public void ClearJelly() {
+        OccupyingJelly = null;
+    }
 }

@@ -1,6 +1,7 @@
 using UnityEngine;
 
 public enum JellyColor {
+    None = -1,
     Aquamarine = 0,
     Emerald = 1,
     Ruby = 2,
