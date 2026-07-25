@@ -48,6 +48,20 @@ namespace JellyGame {
             RefreshVisual();
         }
 
+        public JellyColor GetSubColor(int localX, int localY) {
+            if (localX == 0 && localY == 1) return topLeft;
+            if (localX == 1 && localY == 1) return topRight;
+            if (localX == 0 && localY == 0) return bottomLeft;
+            if (localX == 1 && localY == 0) return bottomRight;
+            return JellyColor.None;
+        }
+        public void SetSubColor(int localX, int localY, JellyColor color) {
+            if (localX == 0 && localY == 1) topLeft = color;
+            else if (localX == 1 && localY == 1) topRight = color;
+            else if (localX == 0 && localY == 0) bottomLeft = color;
+            else if (localX == 1 && localY == 0) bottomRight = color;
+        }
+
         [ContextMenu("Refresh Visual")]
         public void RefreshVisual() {
             InitMaterialDict();

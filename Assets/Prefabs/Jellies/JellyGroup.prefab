@@ -91,14 +91,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85f205241da961243a2d990990656472, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::JellyGame.JellyGroup
-  topLeft: 0
-  topRight: 1
-  bottomLeft: 2
-  bottomRight: 4
-  prefab1x1: {fileID: 0}
-  prefab1x2H: {fileID: 0}
-  prefab2x1V: {fileID: 0}
-  prefab2x2: {fileID: 0}
+  topLeft: -1
+  topRight: -1
+  bottomLeft: -1
+  bottomRight: -1
+  prefab1x1: {fileID: 8519697388264821118, guid: d975ffb54a4a2e14c89bcdcc14ccc391, type: 3}
+  prefab1x2H: {fileID: 9120143135812319363, guid: be907f6c9b8ece24fbb4852262523bfe, type: 3}
+  prefab2x1V: {fileID: 7950189711427469516, guid: 4760b8994cd22f04f9dfa6e4944186a8, type: 3}
+  prefab2x2: {fileID: 8613789685011589156, guid: eb5e737c8e3c2fa4190388ab9349fa07, type: 3}
   colorMaterials:
   - color: 0
     material: {fileID: 2100000, guid: a542cf3e063190e4b9668dc67e48c784, type: 2}
@@ -110,5 +110,7 @@ MonoBehaviour:
     material: {fileID: 2100000, guid: cbf93e648d0d4fd4faf93db0be2309a2, type: 2}
   - color: 4
     material: {fileID: 2100000, guid: 14a1e0463f6ba6c4c931ac546ec40756, type: 2}
+  - color: -1
+    material: {fileID: 2100000, guid: 58c861ba4aa62084aadeca3e0734e852, type: 2}
   squishEffect: {fileID: 2246254030756713335}
   visualContainer: {fileID: 1130615108851588006}

@@ -1,9 +1,12 @@
 using UnityEngine;
 using JellyGame;
+using System;
 
 public class PlacementSystem : MonoBehaviour {
     [SerializeField] private DragSystem dragSystem;
     [SerializeField] private LayerMask cellLayer;
+
+    public event Action<Cell> OnJellyPlaced;
 
     private void OnEnable() {
         if (dragSystem != null) {
@@ -32,6 +35,8 @@ public class PlacementSystem : MonoBehaviour {
             JellySquish squish = jelly.GetComponentInChildren<JellySquish>();
             if (squish != null)
                 squish.ApplySquish();
+
+            OnJellyPlaced?.Invoke(targetCell);
         }
         else {
             jelly.transform.position = originalPosition;
