@@ -141,8 +141,51 @@ public class JellyMerger : MonoBehaviour {
                 cell.ClearJelly();
             } 
             else {
+                SpreadWithinCell(jelly);
                 jelly.RefreshVisual();
             }
         }
+    }
+
+    private void SpreadWithinCell(JellyGroup jelly) {
+        JellyColor[,] colors = new JellyColor[2, 2];
+        bool hasEmpty = false;
+        bool hasColor = false;
+
+        for (int x = 0; x < 2; x++) {
+            for (int y = 0; y < 2; y++) {
+                colors[x, y] = jelly.GetSubColor(x, y);
+                if (colors[x, y] == JellyColor.None) hasEmpty = true;
+                else hasColor = true;
+            }
+        }
+
+        if (!hasEmpty || !hasColor) return;
+
+        Queue<Vector2Int> queue = new Queue<Vector2Int>();
+        for (int x = 0; x < 2; x++)
+            for (int y = 0; y < 2; y++)
+                if (colors[x, y] != JellyColor.None)
+                    queue.Enqueue(new Vector2Int(x, y));
+
+        int[] dx = {1, -1, 0, 0};
+        int[] dy = {0, 0, 1, -1};
+
+        while (queue.Count > 0) {
+            Vector2Int current = queue.Dequeue();
+            for (int i = 0; i < 4; i++) {
+                int nx = current.x + dx[i];
+                int ny = current.y + dy[i];
+                if (nx >= 0 && nx < 2 && ny >= 0 && ny < 2 && colors[nx, ny] == JellyColor.None) {
+                    colors[nx, ny] = colors[current.x, current.y];
+                    queue.Enqueue(new Vector2Int(nx, ny));
+                }
+            }
+        }
+
+    
+        for (int x = 0; x < 2; x++)
+            for (int y = 0; y < 2; y++)
+                jelly.SetSubColor(x, y, colors[x, y]);
     }
 }
