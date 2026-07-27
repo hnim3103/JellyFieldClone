@@ -5,6 +5,7 @@ using JellyGame;
 public class JellyMerger : MonoBehaviour {
     [SerializeField] private PlacementSystem placementSystem;
     [SerializeField] private GridManager gridManager;
+    [SerializeField] private ScoreManager scoreManager;
     [SerializeField] private int minMatchToPop = 2;
 
     private void OnEnable() {
@@ -29,6 +30,15 @@ public class JellyMerger : MonoBehaviour {
     }
 
     public void CheckAndMatchAt(Cell placedCell) {
+        CheckAndMatchRecursive(placedCell);
+
+        // Check lose after the entire chain finishes
+        if (scoreManager != null) {
+            scoreManager.CheckLoseCondition();
+        }
+    }
+
+    private void CheckAndMatchRecursive(Cell placedCell) {
         if (placedCell == null || !placedCell.IsOccupied) return;
 
         List<SubPos> matchedGroup = new List<SubPos>();
@@ -59,7 +69,11 @@ public class JellyMerger : MonoBehaviour {
         }
 
         if (matchedGroup.Count > 0) {
-            ExecutePop(matchedGroup);
+            HashSet<Cell> spreadCells = ExecutePop(matchedGroup);
+
+            foreach (Cell cell in spreadCells) {
+                CheckAndMatchRecursive(cell);
+            }
         }
     }
 
@@ -111,21 +125,41 @@ public class JellyMerger : MonoBehaviour {
         return group;
     }
 
-    private void ExecutePop(List<SubPos> matchedGroup) {
+    private HashSet<Cell> ExecutePop(List<SubPos> matchedGroup) {
         HashSet<Cell> affectedCells = new HashSet<Cell>();
+        HashSet<Cell> spreadCells = new HashSet<Cell>();
+        Dictionary<JellyColor, int> poppedCounts = new Dictionary<JellyColor, int>();
 
         foreach (SubPos pos in matchedGroup) {
             Cell cell = gridManager.GetCell(pos.cellX, pos.cellY);
             if (cell != null && cell.IsOccupied) {
+                // Count and trigger VFX for the color before clearing it
+                JellyColor color = cell.OccupyingJelly.GetSubColor(pos.localX, pos.localY);
+                if (color != JellyColor.None) {
+                    if (!poppedCounts.ContainsKey(color))
+                        poppedCounts[color] = 0;
+                    poppedCounts[color]++;
+
+                    // Play Pop VFX 
+                    Vector3 worldPos = cell.OccupyingJelly.GetSubWorldPosition(pos.localX, pos.localY);
+                    if (JellyPopVFX.Instance != null) {
+                        JellyPopVFX.Instance.PlayPopFX(worldPos, color);
+                    }
+                }
 
                 cell.OccupyingJelly.SetSubColor(pos.localX, pos.localY, JellyColor.None);
                 affectedCells.Add(cell);
             }
         }
 
+        // Report popped colors to score manager
+        if (scoreManager != null && poppedCounts.Count > 0) {
+            scoreManager.RegisterPoppedBlocks(poppedCounts);
+        }
+
         foreach (Cell cell in affectedCells) {
             JellyGroup jelly = cell.OccupyingJelly;
-            
+            if (jelly == null) continue; // Already cleared by another chain
             bool isEmptyAll = true;
             for (int x = 0; x < 2; x++) {
                 for (int y = 0; y < 2; y++) {
@@ -143,7 +177,33 @@ public class JellyMerger : MonoBehaviour {
             else {
                 SpreadWithinCell(jelly);
                 jelly.RefreshVisual();
+                jelly.Jiggle(0.4f);
+                spreadCells.Add(cell);
             }
+        }
+
+        // Jiggle neighbor cells that weren't popped (ripple effect)
+        JiggleNeighbors(affectedCells);
+
+        return spreadCells;
+    }
+
+    private void JiggleNeighbors(HashSet<Cell> affectedCells) {
+        int[] dx = { 1, -1, 0, 0 };
+        int[] dy = { 0, 0, 1, -1 };
+        HashSet<Cell> neighbors = new HashSet<Cell>();
+
+        foreach (Cell cell in affectedCells) {
+            for (int i = 0; i < 4; i++) {
+                Cell neighbor = gridManager.GetCell(cell.X + dx[i], cell.Y + dy[i]);
+                if (neighbor != null && neighbor.IsOccupied && !affectedCells.Contains(neighbor)) {
+                    neighbors.Add(neighbor);
+                }
+            }
+        }
+
+        foreach (Cell neighbor in neighbors) {
+            neighbor.OccupyingJelly.Jiggle(0.2f);
         }
     }
 
@@ -183,7 +243,15 @@ public class JellyMerger : MonoBehaviour {
             }
         }
 
-    
+        // Safety - fix diagonal same-color patterns 
+        if (colors[0, 1] == colors[1, 0] && colors[0, 1] != colors[1, 1] && colors[0, 1] != colors[0, 0]) {
+            colors[1, 0] = colors[1, 1]; // BR takes TR's color
+        }
+        
+        if (colors[1, 1] == colors[0, 0] && colors[1, 1] != colors[0, 1] && colors[1, 1] != colors[1, 0]) {
+            colors[0, 0] = colors[0, 1]; // BL takes TL's color
+        }
+
         for (int x = 0; x < 2; x++)
             for (int y = 0; y < 2; y++)
                 jelly.SetSubColor(x, y, colors[x, y]);

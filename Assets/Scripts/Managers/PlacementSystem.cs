@@ -30,16 +30,16 @@ public class PlacementSystem : MonoBehaviour {
         }
 
         if (targetCell != null && !targetCell.IsOccupied) {
+            jelly.IsPlaced = true;
             targetCell.SetJelly(jelly);
 
-            JellySquish squish = jelly.GetComponentInChildren<JellySquish>();
-            if (squish != null)
-                squish.ApplySquish();
+            jelly.Squish();
 
             OnJellyPlaced?.Invoke(targetCell);
         }
         else {
             jelly.transform.position = originalPosition;
+            jelly.Squish();
         }
     }
 }
