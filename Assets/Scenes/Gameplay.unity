@@ -904,6 +904,7 @@ Transform:
   - {fileID: 226178464}
   - {fileID: 1535060144}
   - {fileID: 1408461885}
+  - {fileID: 1515912871}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &690381864
@@ -2361,6 +2362,67 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1499703990}
   m_CullTransparentMesh: 1
+--- !u!1 &1515912870
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1515912871}
+  - component: {fileID: 1515912872}
+  m_Layer: 0
+  m_Name: PopVFX
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1515912871
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1515912870}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 634189618}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1515912872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1515912870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e07f7e6feb245042bfae589f0d6be8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::JellyPopVFX
+  particleCount: 18
+  particleSpeed: 3.5
+  particleSize: 0.12
+  particleLifetime: 0.45
+  particleMaterial: {fileID: 10301, guid: 0000000000000000f000000000000000, type: 0}
+  shrinkCubePrefab: {fileID: 9203848503889710984, guid: 7c4833a8c080f1c49a14e600dbec4e99, type: 3}
+  colorMaterials:
+  - color: 0
+    material: {fileID: 2100000, guid: a542cf3e063190e4b9668dc67e48c784, type: 2}
+  - color: 1
+    material: {fileID: 2100000, guid: b2ea9e62fd94611439ed6904e7388d38, type: 2}
+  - color: 2
+    material: {fileID: 2100000, guid: 78cf158905a8760479674306237b382f, type: 2}
+  - color: 3
+    material: {fileID: 2100000, guid: cbf93e648d0d4fd4faf93db0be2309a2, type: 2}
+  - color: 4
+    material: {fileID: 2100000, guid: 14a1e0463f6ba6c4c931ac546ec40756, type: 2}
 --- !u!1 &1529802444
 GameObject:
   m_ObjectHideFlags: 0
