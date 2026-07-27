@@ -1,14 +1,11 @@
 {
     "id": 3,
-    "width": 5,
+    "width": 3,
     "height": 5,
     "cellSize": 1.0,
-    "cells": [0,0,1,0,0, 0,1,1,1,0, 1,1,1,1,1, 0,1,1,1,0, 0,0,1,0,0],
+    "cells": [0,1,0, 1,1,1, 1,1,1, 1,1,1, 1,1,1],
     "targets": [
-        {"color": 2, "count": 6},
-        {"color": 0, "count": 4},
-        {"color": 1, "count": 3},
-        {"color": 3, "count": 2}
+        {"color": 4, "count": 6}
     ],
     "preFilledCount": 3
 }
