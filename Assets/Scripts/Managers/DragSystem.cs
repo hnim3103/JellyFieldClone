@@ -31,11 +31,12 @@ public class DragSystem : MonoBehaviour {
             Ray ray = mainCamera.ScreenPointToRay(inputScreenPos);
             if (Physics.Raycast(ray, out RaycastHit hit, 100f, jellyLayer)) {
                 JellyGroup jelly = hit.collider.GetComponentInParent<JellyGroup>();
-                if (jelly != null) {
+                if (jelly != null && !jelly.IsPlaced) {
                     selectedJelly = jelly;
                     originalPosition = selectedJelly.transform.position;
                     dragPlane = new Plane(Vector3.up, selectedJelly.transform.position);
 
+                    selectedJelly.Stretch();
                     OnDragBegan?.Invoke(selectedJelly);
                 }
             }

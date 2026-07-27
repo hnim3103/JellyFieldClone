@@ -3,6 +3,7 @@ using UnityEngine;
 public class CameraController : MonoBehaviour {
     [SerializeField] private Camera targetCamera;
     [SerializeField] private float padding = 0.5f;
+    [SerializeField] private Transform[] additionalFitTargets;
 
     public void FitToGrid(Transform gridContainer) {
         Renderer[] renderers = gridContainer.GetComponentsInChildren<Renderer>();
@@ -14,6 +15,17 @@ public class CameraController : MonoBehaviour {
 
         for (int i = 1; i < renderers.Length; i++)
             bounds.Encapsulate(renderers[i].bounds);
+
+        if (additionalFitTargets != null) {
+            foreach (Transform t in additionalFitTargets) {
+                if (t == null) continue;
+                Renderer r = t.GetComponent<Renderer>();
+                if (r != null)
+                    bounds.Encapsulate(r.bounds);
+                else
+                    bounds.Encapsulate(t.position);
+            }
+        }
 
         Fit(bounds);
     }
