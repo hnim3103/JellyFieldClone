@@ -54,3 +54,4 @@ crashlytics-build.properties
 /Assets/StreamingAssets/aa/*
 
 .vscode/
+.utmp

@@ -600,6 +600,7 @@ GameObject:
   m_Component:
   - component: {fileID: 230516502}
   - component: {fileID: 230516503}
+  - component: {fileID: 230516504}
   m_Layer: 0
   m_Name: GridManager
   m_TagString: Untagged
@@ -637,6 +638,20 @@ MonoBehaviour:
   cellContainer: {fileID: 772697629}
   cellPrefab: {fileID: 8347433494639386582, guid: 0627632d60cb1584f9728625f68bc2bd, type: 3}
   space: 0.08
+--- !u!114 &230516504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 230516501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e91a98cf6edf6a34bbb18edbe6e7b307, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GridPreFiller
+  gridManager: {fileID: 230516503}
+  jellyPrefab: {fileID: 816429041236169121, guid: a1f7f47bf0e5ac945af32c5885c4bb62, type: 3}
 --- !u!1 &257666348
 GameObject:
   m_ObjectHideFlags: 0
@@ -769,63 +784,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 257666348}
   m_CullTransparentMesh: 1
---- !u!1001 &342049223
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 634189618}
-    m_Modifications:
-    - target: {fileID: 1040953668771439619, guid: 854af44e118818d40b965ae526f26240, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1040953668771439619, guid: 854af44e118818d40b965ae526f26240, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -61.8252
-      objectReference: {fileID: 0}
-    - target: {fileID: 1040953668771439619, guid: 854af44e118818d40b965ae526f26240, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 40.95409
-      objectReference: {fileID: 0}
-    - target: {fileID: 1040953668771439619, guid: 854af44e118818d40b965ae526f26240, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1040953668771439619, guid: 854af44e118818d40b965ae526f26240, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1040953668771439619, guid: 854af44e118818d40b965ae526f26240, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1040953668771439619, guid: 854af44e118818d40b965ae526f26240, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1040953668771439619, guid: 854af44e118818d40b965ae526f26240, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1040953668771439619, guid: 854af44e118818d40b965ae526f26240, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1040953668771439619, guid: 854af44e118818d40b965ae526f26240, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8740639285302849121, guid: 854af44e118818d40b965ae526f26240, type: 3}
-      propertyPath: m_Name
-      value: PopVFX
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 854af44e118818d40b965ae526f26240, type: 3}
 --- !u!1 &429568387
 GameObject:
   m_ObjectHideFlags: 0
@@ -946,14 +904,8 @@ Transform:
   - {fileID: 226178464}
   - {fileID: 1535060144}
   - {fileID: 1408461885}
-  - {fileID: 668637484}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &668637484 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1040953668771439619, guid: 854af44e118818d40b965ae526f26240, type: 3}
-  m_PrefabInstance: {fileID: 342049223}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &690381864
 GameObject:
   m_ObjectHideFlags: 0
@@ -1999,6 +1951,51 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ScoreManager
   gridManager: {fileID: 230516503}
+  OnGoalUpdated:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 43079440}
+        m_TargetAssemblyTypeName: GoalDisplay, Assembly-CSharp
+        m_MethodName: RefreshUI
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnLevelWon:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1631520314}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: HandleWin
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnLevelLost:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1631520314}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: HandleLose
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1464720674
 GameObject:
   m_ObjectHideFlags: 0
@@ -2570,12 +2567,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   gridManager: {fileID: 230516503}
+  gridPreFiller: {fileID: 230516504}
   jellySpawner: {fileID: 1631520315}
   cameraController: {fileID: 1339318898}
   scoreManager: {fileID: 1408461886}
   goalDisplay: {fileID: 43079440}
   dragSystem: {fileID: 429568389}
-  uiManager: {fileID: 0}
+  uiManager: {fileID: 1752149031}
   levelTitleText: {fileID: 913242374}
   maxLevel: 3
   worldContainer: {fileID: 471651768}
@@ -2600,6 +2598,7 @@ MonoBehaviour:
   placementSystem: {fileID: 226178465}
   spawnGap: 1.5
   spawnSpread: 0.6
+  goalColorWeight: 0.7
 --- !u!1 &1644092958
 GameObject:
   m_ObjectHideFlags: 0
