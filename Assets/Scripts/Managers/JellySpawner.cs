@@ -71,25 +71,10 @@ public class JellySpawner : MonoBehaviour {
             tr = ColorUtils.PickWeighted(goalColors, goalColorWeight);
             bl = ColorUtils.PickWeighted(goalColors, goalColorWeight);
             br = ColorUtils.PickWeighted(goalColors, goalColorWeight);
-        } while (!IsValidColorConfig(tl, tr, bl, br));
+        } while (!ColorUtils.IsValidColorConfig(tl, tr, bl, br));
 
         jelly.Setup(tl, tr, bl, br);
         spawnedJellies[slotIndex] = jelly;
-    }
-
-    private bool IsValidColorConfig(JellyColor tl, JellyColor tr, JellyColor bl, JellyColor br) {
-        int colorCount = 1;
-        if (tr != tl) colorCount++;
-        if (bl != tl && bl != tr) colorCount++;
-        if (br != tl && br != tr && br != bl) colorCount++;
-
-        if (colorCount == 3) return false;
-        if (colorCount == 1 || colorCount == 4) return true;
-
-        // 2 colors - reject diagonal pairs
-        if (tl == br) return false;
-        if (tr == bl) return false;
-        return true;
     }
 
     public void DestroyUnplacedJellies() {
