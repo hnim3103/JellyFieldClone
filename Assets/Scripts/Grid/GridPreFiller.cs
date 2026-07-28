@@ -30,10 +30,13 @@ public class GridPreFiller : MonoBehaviour {
             Cell cell = emptyCells[i];
             var forbidden = CollectForbiddenColors(cell, filledCells);
 
-            JellyColor tl = ColorUtils.PickWeightedExcluding(goalColors, forbidden.tl);
-            JellyColor tr = ColorUtils.PickWeightedExcluding(goalColors, forbidden.tr);
-            JellyColor bl = ColorUtils.PickWeightedExcluding(goalColors, forbidden.bl);
-            JellyColor br = ColorUtils.PickWeightedExcluding(goalColors, forbidden.br);
+            JellyColor tl, tr, bl, br;
+            do {
+                tl = ColorUtils.PickWeightedExcluding(goalColors, forbidden.tl);
+                tr = ColorUtils.PickWeightedExcluding(goalColors, forbidden.tr);
+                bl = ColorUtils.PickWeightedExcluding(goalColors, forbidden.bl);
+                br = ColorUtils.PickWeightedExcluding(goalColors, forbidden.br);
+            } while (!ColorUtils.IsValidColorConfig(tl, tr, bl, br));
 
             JellyGroup jelly = Instantiate(jellyPrefab, cell.SurfacePosition, Quaternion.identity);
             jelly.Setup(tl, tr, bl, br);

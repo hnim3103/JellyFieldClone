@@ -46,4 +46,19 @@ public static class ColorUtils {
 
         return AllColors[Random.Range(0, AllColors.Length)];
     }
+
+    public static bool IsValidColorConfig(JellyColor tl, JellyColor tr, JellyColor bl, JellyColor br) {
+        int colorCount = 1;
+        if (tr != tl) colorCount++;
+        if (bl != tl && bl != tr) colorCount++;
+        if (br != tl && br != tr && br != bl) colorCount++;
+
+        if (colorCount == 3) return false;
+        if (colorCount == 1 || colorCount == 4) return true;
+
+        // 2 colors: reject diagonal same-color pairs
+        if (tl == br) return false;
+        if (tr == bl) return false;
+        return true;
+    }
 }
